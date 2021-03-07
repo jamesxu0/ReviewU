@@ -11,6 +11,7 @@ import "firebase/auth";
 import firebaseConfig from "./firebaseConfig";
 import { useEffect } from "react";
 import { useState } from "react";
+import Context from "./contexts/context";
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
@@ -30,27 +31,24 @@ function App({ signInWithGoogle, signOut, user, loading }) {
 
   return (
     <div className="App">
-      {isLoggedIn ? (
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={(props) => (
-              <HomePage history={props.history} signOut={signOut} user={user} />
-            )}
-          />
-          <Route path="/class" component={ClassPage} />
-          <Route path="/add" component={AddReviewPage} />
-          <Route
-            path="/login"
-            render={(props) => (
-              <LoginPage signInWithGoogle={signInWithGoogle} user={user} />
-            )}
-          />
-        </Switch>
-      ) : (
-        <LoginPage signInWithGoogle={signInWithGoogle} user={user} />
-      )}
+      <Context.Provider
+        value={{
+          user,
+          signInWithGoogle,
+          signOut,
+        }}
+      >
+        {isLoggedIn ? (
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route path="/class" component={ClassPage} />
+            <Route path="/add" component={AddReviewPage} />
+            <Route path="/login" component={LoginPage} />
+          </Switch>
+        ) : (
+          <LoginPage />
+        )}
+      </Context.Provider>
     </div>
   );
 }

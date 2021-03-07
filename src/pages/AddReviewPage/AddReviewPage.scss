@@ -12,3 +12,21 @@
 .padding-top-10 {
   padding-top: 6px;
 }
+
+.class-split {
+  display: flex;
+  justify-content: center;
+}
+
+.class-name-rating {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 20px;
+}
+
+.review-text {
+  width: 400px;
+  height: 200px;
+  margin-left: 20px;
+}

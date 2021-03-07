@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./AddReviewPage.scss";
-// import NavBar from "./../../components/NavBar"
+import NavBar from "./../../components/NavBar/NavBar";
 import ClassEntry from "./ClassEntry";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
@@ -14,7 +14,7 @@ function AddReviewPage() {
 
   return (
     <div>
-      {/* <NavBar> */}
+      <NavBar />
       <div className="select-semester">
         <p className="margin-right-20">Select Semester</p>
         <Dropdown

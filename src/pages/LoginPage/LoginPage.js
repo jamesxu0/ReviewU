@@ -1,6 +1,15 @@
 import React from "react";
+import { useContext } from "react";
+import { useHistory } from "react-router-dom";
+import Context from "./../../contexts/context";
 
-function LoginPage({ user, signOut, signInWithGoogle }) {
+function LoginPage() {
+  const history = useHistory();
+  const { user, signInWithGoogle } = useContext(Context);
+  if (user) {
+    console.log(history);
+    history.push("/");
+  }
   return (
     <div className="App">
       <header className="App-header">

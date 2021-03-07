@@ -1,0 +1,22 @@
+.navbar {
+  height: 100px;
+  background-color: #5981ea;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.homeIcon {
+  size: 100em;
+  padding-left: 40px;
+  :hover {
+    cursor: pointer;
+  }
+}
+
+.nav-items {
+  display: flex;
+  justify-content: space-between;
+  width: 250px;
+  padding-right: 40px;
+}
