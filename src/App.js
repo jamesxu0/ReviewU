@@ -41,7 +41,7 @@ function App({ signInWithGoogle, signOut, user, loading }) {
         {isLoggedIn ? (
           <Switch>
             <Route exact path="/" component={HomePage} />
-            <Route path="/class" component={ClassPage} />
+            <Route path="/class/:name" component={ClassPage} />
             <Route path="/add" component={AddReviewPage} />
             <Route path="/login" component={LoginPage} />
           </Switch>

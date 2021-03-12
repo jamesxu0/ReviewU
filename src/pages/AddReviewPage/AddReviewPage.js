@@ -8,9 +8,7 @@ import "react-dropdown/style.css";
 function AddReviewPage() {
   const options = ["Winter 2021", "Fall 2020", "Winter 2020"];
   const defaultOption = options[0];
-  // let initialState = "Winter 2021";
   const [semester, setState] = useState(defaultOption);
-  let ClassArray = [];
 
   return (
     <div>
