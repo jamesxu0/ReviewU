@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./AddReviewPage.scss";
 import NavBar from "./../../components/NavBar/NavBar";
 import Dropdown from "react-dropdown";
@@ -10,8 +10,12 @@ import { FaMinusCircle } from "react-icons/fa";
 import { FaCheckCircle } from "react-icons/fa";
 import Autocomplete from "react-autocomplete";
 import { allClasses } from "./../../utils/ClassUtils";
+import Context from "./../../contexts/context";
+import firebase from "firebase/app";
+import "firebase/database";
 
 function AddReviewPage() {
+  const { user } = useContext(Context);
   const options = [
     "Winter 2021",
     "Fall 2020",
@@ -31,7 +35,22 @@ function AddReviewPage() {
       comment: "",
     },
   ]);
-  const handleSubmitEntry = () => {};
+  const handleSubmitEntry = () => {
+    firebase
+      .database()
+      .ref("users/" + user.uid + "/reviews/" + semester)
+      .set(entries);
+    entries.forEach((entry) => {
+      console.log("h");
+      entry.authorName = user.displayName;
+      entry.authorID = user.uid;
+      entry.semester = semester;
+      firebase
+        .database()
+        .ref("class/" + entry.class + "/")
+        .push(entry);
+    });
+  };
   const handleAddEntry = () => {
     setEntries([
       ...entries,

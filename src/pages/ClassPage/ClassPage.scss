@@ -1,11 +1,36 @@
+.mainClassContainer {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
 .mainNumber {
-  margin-left: 40px;
   font-size: 48px;
   margin-bottom: 0px;
 }
 
 .mainName {
-  margin-left: 40px;
   margin-top: 0px;
   font-size: 24px;
+}
+
+.starsContainer {
+  display: flex;
+  justify-content: space-between;
+  h2 {
+    font-size: 24px;
+    margin-bottom: 0px;
+  }
+}
+
+.review {
+  padding: 20px 30px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  .reviewAuthor {
+    font-weight: bold;
+  }
+  .reviewStarsContainer {
+    h2 {
+      font-size: 20px;
+    }
+  }
 }
