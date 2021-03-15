@@ -1,4 +1,6 @@
 import React from "react";
+import "./LoginPage.scss";
+import { FaGoogle } from "react-icons/fa";
 import { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import Context from "./../../contexts/context";
@@ -11,10 +13,12 @@ function LoginPage() {
     history.push("/");
   }
   return (
-    <div className="App">
-      <header className="App-header">
-        <button onClick={signInWithGoogle}>Sign in with Google</button>
-      </header>
+    <div className="loginContainer">
+      <h2 className="title">Please sign in with a @umich.edu email</h2>
+      <div className="loginButton" onClick={signInWithGoogle}>
+        <FaGoogle size={32} />
+        <p className="buttonText">Sign in with Google</p>
+      </div>
     </div>
   );
 }

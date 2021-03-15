@@ -8,27 +8,65 @@ import "./App.scss";
 import withFirebaseAuth from "react-with-firebase-auth";
 import firebase from "firebase/app";
 import "firebase/auth";
+import "firebase/database";
 import firebaseConfig from "./firebaseConfig";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import Context from "./contexts/context";
+import { ToastProvider, useToasts } from "react-toast-notifications";
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
-function App({ signInWithGoogle, signOut, user, loading }) {
+function App() {
+  const { signOut } = useContext(Context);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const { addToast } = useToasts();
   useEffect(() => {
     firebase.auth().onAuthStateChanged((firebaseUser) => {
-      console.log("auth change");
       if (firebaseUser) {
-        setIsLoggedIn(true);
-        // history.push("/");
+        if (!firebaseUser.email.endsWith("@umich.edu")) {
+          signOut();
+          addToast("You must login with a @umich.edu email", {
+            appearance: "error",
+          });
+        } else {
+          setIsLoggedIn(true);
+          firebase
+            .database()
+            .ref("users/" + firebaseUser.uid)
+            .once("value")
+            .then(function (snapshot) {
+              if (!snapshot.exists()) {
+                firebase
+                  .database()
+                  .ref("users/" + firebaseUser.uid)
+                  .set({
+                    name: firebaseUser.displayName,
+                  });
+              }
+            });
+        }
       } else {
         setIsLoggedIn(false);
       }
     });
   }, []);
+  return (
+    <div>
+      {isLoggedIn ? (
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/class/:name" component={ClassPage} />
+          <Route path="/add" component={AddReviewPage} />
+          <Route path="/login" component={LoginPage} />
+        </Switch>
+      ) : (
+        <LoginPage />
+      )}
+    </div>
+  );
+}
 
+function AppContainer({ signInWithGoogle, signOut, user, loading }) {
   return (
     <div className="App">
       <Context.Provider
@@ -38,16 +76,13 @@ function App({ signInWithGoogle, signOut, user, loading }) {
           signOut,
         }}
       >
-        {isLoggedIn ? (
-          <Switch>
-            <Route exact path="/" component={HomePage} />
-            <Route path="/class/:name" component={ClassPage} />
-            <Route path="/add" component={AddReviewPage} />
-            <Route path="/login" component={LoginPage} />
-          </Switch>
-        ) : (
-          <LoginPage />
-        )}
+        <ToastProvider
+          autoDismiss={true}
+          autoDismissTimeout={5000}
+          placement="top-center"
+        >
+          <App />
+        </ToastProvider>
       </Context.Provider>
     </div>
   );
@@ -62,4 +97,4 @@ const providers = {
 export default withFirebaseAuth({
   providers,
   firebaseAppAuth,
-})(App);
+})(AppContainer);

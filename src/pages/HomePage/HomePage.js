@@ -64,7 +64,10 @@ function HomePage() {
             item.endsWith(value)
           }
           renderMenu={renderMenu}
-          inputProps={{ className: "searchbar" }}
+          inputProps={{
+            className: "searchbar",
+            placeholder: "Enter a class...",
+          }}
         />
         <h2 className="add-reviews" onClick={handleAddReviewsClick}>
           Add Reviews

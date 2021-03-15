@@ -2,28 +2,25 @@
   margin: 0 auto;
   width: 75%;
   text-align: center;
-}
-
-.mainTitle {
-  font-size: 48px;
-  margin-top: 100px;
-  margin-bottom: 75px;
-  color: #2b48b1;
-}
-
-.searchbar {
-  width: 350px;
-  height: 45px;
-  font-size: 20px;
-  border-radius: 15px;
-  border: none;
-  border: solid 1px #ccc;
-  padding-left: 15px;
-}
-
-.add-reviews {
-  font-size: 24px;
-  color: #2b48b1;
-  margin-top: 75px;
-  text-decoration: underline;
+  .mainTitle {
+    font-size: 48px;
+    margin-top: 100px;
+    margin-bottom: 75px;
+    color: #2b48b1;
+  }
+  .searchbar {
+    width: 350px;
+    height: 45px;
+    font-size: 20px;
+    border-radius: 15px;
+    border: none;
+    border: solid 1px #ccc;
+    padding-left: 15px;
+  }
+  .add-reviews {
+    font-size: 24px;
+    color: #2b48b1;
+    margin-top: 75px;
+    text-decoration: underline;
+  }  
 }
