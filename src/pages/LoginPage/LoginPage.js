@@ -9,7 +9,6 @@ function LoginPage() {
   const history = useHistory();
   const { user, signInWithGoogle } = useContext(Context);
   if (user) {
-    console.log(history);
     history.push("/");
   }
   return (

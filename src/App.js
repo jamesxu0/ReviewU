@@ -14,8 +14,10 @@ import firebaseConfig from "./firebaseConfig";
 import { useState, useContext, useEffect } from "react";
 import Context from "./contexts/context";
 import { ToastProvider, useToasts } from "react-toast-notifications";
+import Modal from "react-modal";
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
+Modal.setAppElement("#root");
 
 function App() {
   const { signOut } = useContext(Context);
@@ -81,7 +83,7 @@ function AppContainer({ signInWithGoogle, signOut, user, loading }) {
         <ToastProvider
           autoDismiss={true}
           autoDismissTimeout={5000}
-          placement="top-center"
+          placement="bottom-center"
         >
           <App />
         </ToastProvider>
