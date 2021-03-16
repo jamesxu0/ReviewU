@@ -65,7 +65,8 @@ function AddReviewPage() {
       firebase
         .database()
         .ref("class/" + entry.class + "/")
-        .set({ [user.uid]: entry });
+        .child(user.uid)
+        .set(entry);
     });
     history.push("/");
     addToast("Review successfully saved", {
