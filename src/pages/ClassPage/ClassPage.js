@@ -57,7 +57,6 @@ function ClassPage() {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   function openModal(authorID, semester) {
     return () => {
-      console.log("users/" + authorID + "/" + semester + "/");
       setIsOpen(true);
       firebase
         .database()
