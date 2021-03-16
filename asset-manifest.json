@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/ReviewU/static/css/main.07f32647.chunk.css",
-    "main.js": "/ReviewU/static/js/main.1ae39124.chunk.js",
-    "main.js.map": "/ReviewU/static/js/main.1ae39124.chunk.js.map",
+    "main.js": "/ReviewU/static/js/main.fbcafda9.chunk.js",
+    "main.js.map": "/ReviewU/static/js/main.fbcafda9.chunk.js.map",
     "runtime-main.js": "/ReviewU/static/js/runtime-main.4250b786.js",
     "runtime-main.js.map": "/ReviewU/static/js/runtime-main.4250b786.js.map",
     "static/css/2.ee241de9.chunk.css": "/ReviewU/static/css/2.ee241de9.chunk.css",
     "static/js/2.3e19bacf.chunk.js": "/ReviewU/static/js/2.3e19bacf.chunk.js",
     "static/js/2.3e19bacf.chunk.js.map": "/ReviewU/static/js/2.3e19bacf.chunk.js.map",
     "index.html": "/ReviewU/index.html",
-    "precache-manifest.a217f230c5604919d951c9e7dac8a550.js": "/ReviewU/precache-manifest.a217f230c5604919d951c9e7dac8a550.js",
+    "precache-manifest.923a34378ebd9247f2fcfe15ade357f3.js": "/ReviewU/precache-manifest.923a34378ebd9247f2fcfe15ade357f3.js",
     "service-worker.js": "/ReviewU/service-worker.js",
     "static/css/2.ee241de9.chunk.css.map": "/ReviewU/static/css/2.ee241de9.chunk.css.map",
     "static/css/main.07f32647.chunk.css.map": "/ReviewU/static/css/main.07f32647.chunk.css.map",
@@ -20,6 +20,6 @@
     "static/css/2.ee241de9.chunk.css",
     "static/js/2.3e19bacf.chunk.js",
     "static/css/main.07f32647.chunk.css",
-    "static/js/main.1ae39124.chunk.js"
+    "static/js/main.fbcafda9.chunk.js"
   ]
 }
