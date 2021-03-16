@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/ReviewU/static/css/main.07f32647.chunk.css",
+    "main.js": "/ReviewU/static/js/main.9b4ff7e2.chunk.js",
+    "main.js.map": "/ReviewU/static/js/main.9b4ff7e2.chunk.js.map",
+    "runtime-main.js": "/ReviewU/static/js/runtime-main.4250b786.js",
+    "runtime-main.js.map": "/ReviewU/static/js/runtime-main.4250b786.js.map",
+    "static/css/2.ee241de9.chunk.css": "/ReviewU/static/css/2.ee241de9.chunk.css",
+    "static/js/2.3e19bacf.chunk.js": "/ReviewU/static/js/2.3e19bacf.chunk.js",
+    "static/js/2.3e19bacf.chunk.js.map": "/ReviewU/static/js/2.3e19bacf.chunk.js.map",
+    "index.html": "/ReviewU/index.html",
+    "precache-manifest.d18507d1bfe09d8869928a110fa9d470.js": "/ReviewU/precache-manifest.d18507d1bfe09d8869928a110fa9d470.js",
+    "service-worker.js": "/ReviewU/service-worker.js",
+    "static/css/2.ee241de9.chunk.css.map": "/ReviewU/static/css/2.ee241de9.chunk.css.map",
+    "static/css/main.07f32647.chunk.css.map": "/ReviewU/static/css/main.07f32647.chunk.css.map",
+    "static/js/2.3e19bacf.chunk.js.LICENSE.txt": "/ReviewU/static/js/2.3e19bacf.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4250b786.js",
+    "static/css/2.ee241de9.chunk.css",
+    "static/js/2.3e19bacf.chunk.js",
+    "static/css/main.07f32647.chunk.css",
+    "static/js/main.9b4ff7e2.chunk.js"
+  ]
+}
