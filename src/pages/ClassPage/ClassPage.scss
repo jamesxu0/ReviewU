@@ -1,6 +1,9 @@
 .mainClassContainer {
-  margin-left: 10%;
-  margin-right: 10%;
+  margin: 0 auto;
+  padding-left: 10%;
+  padding-right: 10%;
+  max-width: 1000px;
+  min-width: 700px;
 }
 
 .mainNumber {
@@ -23,14 +26,45 @@
 }
 
 .review {
-  padding: 20px 30px;
+  position: relative;
+  padding: 30px 30px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  margin-bottom: 30px;
+  display: flex;
+  p {
+    font-size: 20px;
+  }
   .reviewAuthor {
     font-weight: bold;
+    margin-bottom: 0px;
+    margin-top: 0px;
+  }
+  .reviewInfo {
+    margin-top: 10px;
   }
   .reviewStarsContainer {
     h2 {
-      font-size: 20px;
+      font-size: 16px;
+      width: 110px;
     }
+    .starContainer {
+      display: flex;
+    }
+  }
+  .leftReview {
+    width: 45%;
+  }
+  .rightReview {
+    width: 55%;
+    margin-left: 40px;
+    h2 {
+      font-size: 20px;
+      margin-top: 0px;
+    }
+  }
+  .reviewExpand {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
   }
 }

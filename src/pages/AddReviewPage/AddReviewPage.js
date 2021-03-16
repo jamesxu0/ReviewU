@@ -13,8 +13,12 @@ import { allClasses } from "./../../utils/ClassUtils";
 import Context from "./../../contexts/context";
 import firebase from "firebase/app";
 import "firebase/database";
+import { useHistory } from "react-router-dom";
+import { useToasts } from "react-toast-notifications";
 
 function AddReviewPage() {
+  const history = useHistory();
+  const { addToast } = useToasts();
   const { user } = useContext(Context);
   const options = [
     "Winter 2021",
@@ -25,6 +29,8 @@ function AddReviewPage() {
     "Fall 2018",
   ];
   const [semester, setState] = useState(options[0]);
+  const [semesterComments, setSemesterComments] = useState("");
+  const [overallRating, setOverallRating] = useState(0);
   const [entries, setEntries] = useState([
     {
       class: "",
@@ -36,19 +42,34 @@ function AddReviewPage() {
     },
   ]);
   const handleSubmitEntry = () => {
+    for (let x = 0; x < entries.length; ++x) {
+      if (entries[x].class === "") {
+        addToast("Missing class name", {
+          appearance: "error",
+        });
+        return;
+      }
+    }
     firebase
       .database()
       .ref("users/" + user.uid + "/reviews/" + semester)
-      .set(entries);
+      .set({
+        overallRating,
+        semesterComments,
+        classes: entries,
+      });
     entries.forEach((entry) => {
-      console.log("h");
       entry.authorName = user.displayName;
       entry.authorID = user.uid;
       entry.semester = semester;
       firebase
         .database()
         .ref("class/" + entry.class + "/")
-        .push(entry);
+        .set({ [user.uid]: entry });
+    });
+    history.push("/");
+    addToast("Review successfully saved", {
+      appearance: "success",
     });
   };
   const handleAddEntry = () => {
@@ -92,14 +113,32 @@ function AddReviewPage() {
   return (
     <div>
       <NavBar />
-      <div className="select-semester">
-        <p className="select-text">Select Semester</p>
-        <Dropdown
-          options={options}
-          onChange={(option) => setState(option)}
-          value={semester}
-        />
+      <div className="semesterContainer">
+        <div className="selectContainer">
+          <p className="select-text">Select Semester</p>
+          <Dropdown
+            options={options}
+            onChange={(option) => setState(option.value)}
+            value={semester}
+          />
+        </div>
+        <div className="overallContainer">
+          Overall
+          <ReactStars
+            count={5}
+            value={overallRating}
+            onChange={(rating) => setOverallRating(rating)}
+            size={36}
+            color2={"#ffd700"}
+          />
+        </div>
       </div>
+      <textarea
+        className="semesterComments"
+        placeholder="Semester comments..."
+        value={semesterComments}
+        onChange={(e) => setSemesterComments(e.target.value)}
+      />
       <div className="entryContainer">
         {entries.map((entry, idx) => {
           return (
@@ -207,7 +246,7 @@ function AddReviewPage() {
                   setEntries([...entries]);
                 }}
                 className="mainInput"
-                placeholder="Enter a comment..."
+                placeholder="Class comments..."
               />
             </div>
           );
