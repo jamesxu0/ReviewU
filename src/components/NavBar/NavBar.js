@@ -4,8 +4,9 @@ import { FaHome } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
 import Context from "./../../contexts/context";
 import { useContext } from "react";
+import SearchBar from "../SearchBar/SearchBar";
 
-function NavBar(isHomePage) {
+function NavBar(props) {
   const history = useHistory();
   const { signOut } = useContext(Context);
   const handleHomeClick = () => {
@@ -17,6 +18,8 @@ function NavBar(isHomePage) {
   return (
     <div className="navbar">
       <FaHome onClick={handleHomeClick} size={60} className="homeIcon" />
+      {!props.isHomePage ? <SearchBar /> : ''}
+
       <div className="nav-items">
       <h2
           onClick={handleAccountClick}

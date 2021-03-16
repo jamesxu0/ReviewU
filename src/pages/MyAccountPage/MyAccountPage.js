@@ -60,7 +60,7 @@ function MyAccountPage() {
 
   return (
     <div className="classPage">
-      <NavBar />
+      <NavBar isHomePage={false}/>
       {true ? (
         <div className="mainClassContainer">
           <div className="reviewsContainer">

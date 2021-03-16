@@ -113,7 +113,7 @@ function AddReviewPage() {
   }
   return (
     <div>
-      <NavBar />
+      <NavBar isHomePage={false}/>
       <div className="semesterContainer">
         <div className="selectContainer">
           <p className="select-text">Select Semester</p>

@@ -89,7 +89,7 @@ function ClassPage() {
         {JSON.stringify(fullReview)}
         <button onClick={closeModal}>close</button>
       </Modal>
-      <NavBar />
+      <NavBar isHomePage={false} />
       {numberToClassName[classNumber.toUpperCase()] ? (
         <div className="mainClassContainer">
           <h2 className="mainNumber">{classNumber.toUpperCase()}</h2>
