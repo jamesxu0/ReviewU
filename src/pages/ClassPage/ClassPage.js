@@ -23,6 +23,7 @@ const customStyles = {
 function ClassPage() {
   const match = useRouteMatch();
   const classNumber = match.url.split("/").pop();
+  console.log(classNumber);
   const [reviews, setReviews] = useState([]);
   const [fullReview, setFullReview] = useState({});
   useEffect(() => {
@@ -35,14 +36,14 @@ function ClassPage() {
           if (snapshot.exists()) {
             setReviews(Object.values(snapshot.val()));
           } else {
-            console.log("No data available");
+            setReviews([]);
           }
         })
         .catch(function (error) {
           console.error(error);
         });
     }
-  }, []);
+  }, [classNumber]);
 
   let totalWorkload = 0;
   let totalQuality = 0;
