@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
 import AddReviewPage from "./pages/AddReviewPage/AddReviewPage";
+import MyAccountPage from "./pages/MyAccountPage/MyAccountPage";
 import ClassPage from "./pages/ClassPage/ClassPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import "./App.scss";
@@ -56,6 +57,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route path="/class/:name" component={ClassPage} />
+          <Route path="/account" component={MyAccountPage} />
           <Route path="/add" component={AddReviewPage} />
           <Route path="/login" component={LoginPage} />
         </Switch>

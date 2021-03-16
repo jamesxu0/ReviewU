@@ -11,11 +11,19 @@ function NavBar(isHomePage) {
   const handleHomeClick = () => {
     history.push("/");
   };
+  const handleAccountClick = () => {
+    history.push("/account");
+  };
   return (
     <div className="navbar">
       <FaHome onClick={handleHomeClick} size={60} className="homeIcon" />
       <div className="nav-items">
-        <h2>My Account</h2>
+      <h2
+          onClick={handleAccountClick}
+          style={{ cursor: "pointer" }}
+        >
+          My Account
+        </h2>
         <h2
           onClick={() => {
             signOut();
