@@ -8,6 +8,7 @@ import "firebase/database";
 import ReactStars from "react-stars";
 import Modal from "react-modal";
 import { useHistory } from "react-router-dom";
+import { FaWindowClose } from "react-icons/fa";
 
 const customStyles = {
   content: {
@@ -96,10 +97,16 @@ function ClassPage() {
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         style={customStyles}
-        overlayClassName="modalOverlay"
         contentLabel="Full Semester Review"
       >
-        <h2>Overall Semester Rating: {fullReview.overallRating}</h2>
+        <FaWindowClose
+          size={28}
+          style={{ cursor: "pointer", float: "right", paddingTop: "-15px" }}
+          onClick={() => {
+            closeModal();
+          }}
+        />
+        <h2>Overall Semester Rating: {fullReview.overallRating}/5</h2>
         <p>{fullReview.semesterComments}</p>
         {fullReview.hasOwnProperty("classes") &&
           fullReview.classes.map((review) => {
@@ -119,7 +126,6 @@ function ClassPage() {
               </div>
             );
           })}
-        <button onClick={closeModal}>close</button>
       </Modal>
       <NavBar isHomePage={false} />
       {numberToClassName[classNumber.toUpperCase()] ? (

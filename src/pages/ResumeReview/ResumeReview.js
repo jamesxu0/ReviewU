@@ -1,5 +1,5 @@
 import React from "react";
-// import "./ResumeReview.css";
+import "./ResumeReview.scss";
 import { useContext, useEffect, useState } from "react";
 import "firebase/storage";
 import NavBar from "./../../components/NavBar/NavBar";
@@ -8,7 +8,10 @@ import Context from "./../../contexts/context";
 import firebase from "firebase/app";
 import "firebase/storage";
 import "firebase/database";
+import { FaFileUpload } from "react-icons/fa";
 import Modal from "react-modal";
+import { FaWindowClose } from "react-icons/fa";
+import { FaCheckCircle } from "react-icons/fa";
 
 const customStyles = {
   content: {
@@ -30,7 +33,10 @@ function ResumeReview() {
   const [resumes, setResumes] = useState({});
   const [selectedResume, setSelectedResume] = useState("");
   const [resumeComments, setResumeComments] = useState("");
+  const [resumeUploadComments, setResumeUploadComments] = useState("");
+
   const [selectedID, setSelectedID] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
   console.log(resumes);
 
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -40,6 +46,7 @@ function ResumeReview() {
   }
   function closeModal() {
     setIsOpen(false);
+    setResumeComments("");
   }
 
   useEffect(() => {
@@ -58,8 +65,8 @@ function ResumeReview() {
       });
   }, []);
 
-  const handleUpload = (fileObj) => {
-    const uploadTask = storage.ref(user.uid).put(fileObj);
+  const handleUpload = () => {
+    const uploadTask = storage.ref(user.uid).put(selectedFile);
     uploadTask.on(
       "state_changed",
       (snapshot) => {
@@ -82,20 +89,23 @@ function ResumeReview() {
             firebase
               .database()
               .ref("resumes/" + user.uid)
-              .set({ url: url, displayName: user.displayName, comments: [] });
+              .set({
+                url: url,
+                displayName: user.displayName,
+                comments: [],
+                requestComments: resumeUploadComments,
+              });
+          })
+          .then(() => {
+            window.location.reload(false);
           });
       }
     );
   };
 
   const handleCommentUpload = () => {
-    console.log("this is the comment: " + resumeComments);
-    console.log(selectedID);
     const pastComments = resumes[selectedID].comments ?? [];
-    // resumeCon
-
     const resumeRef = firebase.database().ref("resumes/" + selectedID);
-
     resumeRef.set({
       ...resumes[selectedID],
       comments: [
@@ -103,7 +113,6 @@ function ResumeReview() {
         { displayName: user.displayName, comment: resumeComments },
       ],
     });
-
     resumeRef.once("value").then((snapshot) => {
       if (snapshot.exists()) {
         resumes[selectedID] = snapshot.val();
@@ -120,9 +129,15 @@ function ResumeReview() {
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         style={customStyles}
-        overlayClassName="modalOverlay"
         contentLabel="Full Semester Review"
       >
+        <FaWindowClose
+          size={28}
+          style={{ cursor: "pointer", float: "right", paddingTop: "-15px" }}
+          onClick={() => {
+            closeModal();
+          }}
+        />
         <div style={{ display: "flex" }}>
           <embed src={selectedResume} width="750px" height="800" />
           <div
@@ -132,12 +147,15 @@ function ResumeReview() {
               flexDirection: "column",
             }}
           >
+            {resumes[selectedID]?.requestComments && (
+              <p>{resumes[selectedID]?.requestComments}</p>
+            )}
             <h2>Comments:</h2>
             <textarea
               className="resumeComments"
               placeholder="Add your resume comment..."
               value={resumeComments}
-              style={{ width: "400px" }}
+              style={{ width: "400px", resize: "none" }}
               onChange={(e) => setResumeComments(e.target.value)}
             />
             <button onClick={handleCommentUpload}>Submit Comment</button>
@@ -157,31 +175,70 @@ function ResumeReview() {
           </div>
         </div>
       </Modal>
-      <h2>Resume Review</h2>
-      <FilePicker
-        extensions={["pdf"]}
-        onChange={(fileObject) => {
-          handleUpload(fileObject);
-        }}
-        onError={(errMsg) => {}}
-      >
-        <button>Click to upload resume</button>
-      </FilePicker>
-      <div className="resumeList">
-        {Object.entries(resumes).map((resume) => (
-          <div className="resumeListItem">
-            <h2>{resume[1].displayName}</h2>
-            <button
-              onClick={() => {
-                openModal();
-                setSelectedResume(resume[1].url);
-                setSelectedID(resume[0]);
-              }}
+      <div className="reviewContainer">
+        <h1>Resume Review</h1>
+        <div style={{ display: "flex" }}>
+          <FilePicker
+            extensions={["pdf"]}
+            onChange={(fileObject) => {
+              console.log(fileObject.name);
+              setSelectedFile(fileObject);
+            }}
+            onError={(errMsg) => {}}
+          >
+            <a className="uploadButton" role="button" href="#">
+              <span>Select</span>
+              <div className="icon">
+                <FaFileUpload size={32} />
+              </div>
+            </a>
+          </FilePicker>
+          {selectedFile && (
+            <a
+              className="submitButton"
+              role="button"
+              href="#"
+              onClick={handleUpload}
             >
-              Open Resume
-            </button>
+              <span>Submit</span>
+              <div className="icon">
+                <FaCheckCircle size={32} />
+              </div>
+            </a>
+          )}
+        </div>
+        {selectedFile && (
+          <div>
+            <p>{selectedFile.name}</p>
+            <textarea
+              className="resumeUploadComments"
+              placeholder="Add some comments about your resume..."
+              value={resumeUploadComments}
+              style={{ width: "400px", resize: "none" }}
+              onChange={(e) => setResumeUploadComments(e.target.value)}
+            />
           </div>
-        ))}
+        )}
+        <div className="resumeList">
+          {Object.entries(resumes).map((resume) => (
+            <div className="resumeListItem">
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <h2>{resume[1].displayName}</h2>
+                <button
+                  style={{ height: "30px" }}
+                  onClick={() => {
+                    openModal();
+                    setSelectedResume(resume[1].url);
+                    setSelectedID(resume[0]);
+                  }}
+                >
+                  Open Resume
+                </button>
+              </div>
+              <p>{resume[1].requestComments}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

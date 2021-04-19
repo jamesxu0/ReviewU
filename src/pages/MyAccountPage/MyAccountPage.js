@@ -73,6 +73,12 @@ function MyAccountPage() {
                           .database()
                           .ref("users/" + user.uid + "/reviews/" + sem_key)
                           .remove();
+                        review_sem.classes.forEach((c) => {
+                          firebase
+                            .database()
+                            .ref("class/" + c.class + "/" + user.uid)
+                            .remove();
+                        });
                         window.location.reload(false);
                       }}
                     />

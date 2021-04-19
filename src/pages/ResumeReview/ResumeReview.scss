@@ -1,0 +1,93 @@
+.reviewContainer {
+  padding: 25px 20%;
+}
+
+.resumeList {
+  margin-top: 50px;
+}
+
+.resumeListItem {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin-top: 20px;
+  h2 {
+    margin: 0;
+  }
+  button {
+    margin-left: 20px;
+  }
+  p {
+    margin-top: 20px;
+    margin-bottom: 0;
+  }
+}
+
+$speed: "0.25s";
+$transition: all #{$speed} cubic-bezier(0.31, -0.105, 0.43, 1.4);
+
+.uploadButton {
+  display: block;
+  background-color: #4bb543;
+  width: 170px;
+  height: 50px;
+  line-height: 50px;
+  color: #fff;
+  position: sticky;
+  bottom: -10px;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 5px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.3);
+  transition: $transition;
+  margin-right: 30px;
+  span,
+  .icon {
+    display: block;
+    height: 100%;
+    text-align: center;
+    position: absolute;
+  }
+  span {
+    width: 72%;
+    line-height: inherit;
+    font-size: 22px;
+    text-transform: uppercase;
+    left: 0;
+    transition: $transition;
+    &:after {
+      content: "";
+      background-color: #388a32;
+      width: 2px;
+      height: 70%;
+      position: absolute;
+      top: 15%;
+      right: 8px;
+    }
+  }
+  .icon {
+    width: 28%;
+    right: 5px;
+    transition: $transition;
+    top: 10px;
+  }
+  &.success,
+  &:hover {
+    span {
+      left: -72%;
+      opacity: 0;
+    }
+    .icon {
+      width: 100%;
+
+      .fa {
+        font-size: 45px;
+      }
+    }
+  }
+  &:hover {
+    opacity: 0.9;
+  }
+  &:active {
+    opacity: 1;
+  }
+}
