@@ -7,6 +7,7 @@ import firebase from "firebase/app";
 import "firebase/database";
 import ReactStars from "react-stars";
 import Modal from "react-modal";
+import { useHistory } from "react-router-dom";
 
 const customStyles = {
   content: {
@@ -17,11 +18,13 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
+    // zIndex: 10,
   },
 };
 
 function ClassPage() {
   const match = useRouteMatch();
+  const history = useHistory();
   const classNumber = match.url.split("/").pop();
   console.log(classNumber);
   const [reviews, setReviews] = useState([]);
@@ -55,7 +58,7 @@ function ClassPage() {
     totalUsefulness += review.usefulness;
   });
 
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
   function openModal(authorID, semester) {
     return () => {
       setIsOpen(true);
@@ -78,6 +81,14 @@ function ClassPage() {
   function closeModal() {
     setIsOpen(false);
   }
+  console.log(fullReview);
+
+  function handleClassNameClick(className) {
+    return () => {
+      closeModal();
+      history.push(className);
+    };
+  }
 
   return (
     <div className="classPage">
@@ -85,9 +96,29 @@ function ClassPage() {
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         style={customStyles}
+        overlayClassName="modalOverlay"
         contentLabel="Full Semester Review"
       >
-        {JSON.stringify(fullReview)}
+        <h2>Overall Semester Rating: {fullReview.overallRating}</h2>
+        <p>{fullReview.semesterComments}</p>
+        {fullReview.hasOwnProperty("classes") &&
+          fullReview.classes.map((review) => {
+            return (
+              <div>
+                <h3>
+                  <span onClick={handleClassNameClick(review.class)}>
+                    {review.class}
+                  </span>{" "}
+                  {review.professor && "-"} {review.professor}
+                </h3>
+                <p>{review.comment}</p>
+                <p>
+                  Quality: {review.quality}, Workload: {review.workload},
+                  Usefulness: {review.usefulness}
+                </p>
+              </div>
+            );
+          })}
         <button onClick={closeModal}>close</button>
       </Modal>
       <NavBar isHomePage={false} />

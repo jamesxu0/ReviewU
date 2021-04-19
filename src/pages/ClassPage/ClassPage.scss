@@ -25,10 +25,14 @@
   }
 }
 
+.modalOverlay {
+  z-index: 100;
+}
+
 .review {
   position: relative;
   padding: 30px 30px;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   margin-bottom: 30px;
   display: flex;
   p {

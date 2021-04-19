@@ -15,16 +15,20 @@ function NavBar(props) {
   const handleAccountClick = () => {
     history.push("/account");
   };
+  const handleResumeReviewClick = () => {
+    history.push("/resume");
+  };
   return (
     <div className="navbar">
       <FaHome onClick={handleHomeClick} size={60} className="homeIcon" />
-      {!props.isHomePage ? <SearchBar /> : ''}
+
+      {!props.isHomePage ? <SearchBar /> : ""}
 
       <div className="nav-items">
-      <h2
-          onClick={handleAccountClick}
-          style={{ cursor: "pointer" }}
-        >
+        <h2 onClick={handleResumeReviewClick} style={{ cursor: "pointer" }}>
+          Resumes
+        </h2>
+        <h2 onClick={handleAccountClick} style={{ cursor: "pointer" }}>
           My Account
         </h2>
         <h2

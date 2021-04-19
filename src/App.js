@@ -5,6 +5,7 @@ import AddReviewPage from "./pages/AddReviewPage/AddReviewPage";
 import MyAccountPage from "./pages/MyAccountPage/MyAccountPage";
 import ClassPage from "./pages/ClassPage/ClassPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import ResumeReview from "./pages/ResumeReview/ResumeReview";
 import "./App.scss";
 import withFirebaseAuth from "react-with-firebase-auth";
 import firebase from "firebase/app";
@@ -62,6 +63,7 @@ function App() {
           <Route path="/account" component={MyAccountPage} />
           <Route path="/add" component={AddReviewPage} />
           <Route path="/login" component={LoginPage} />
+          <Route path="/resume" component={ResumeReview} />
         </Switch>
       ) : (
         <LoginPage />
